@@ -3,318 +3,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Downloader - DARK NEXA 😈</title>
+    <title>YouTube Downloader - Konverter MP3/MP4</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-        
+
         body {
-            background: linear-gradient(135deg, #0f0c1f 0%, #1a142b 100%);
-            color: #e0e0e0;
-            min-height: 100vh;
-            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
         }
-        
+
+        .navbar {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 40px 20px;
         }
-        
-        header {
+
+        .hero {
             text-align: center;
-            margin-bottom: 40px;
-            padding: 30px 0;
-            border-bottom: 2px solid #ff0066;
+            margin-bottom: 50px;
         }
-        
-        h1 {
-            font-size: 3em;
-            color: #ff0066;
-            text-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
-            letter-spacing: 3px;
+
+        .hero h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #222;
         }
-        
-        .subtitle {
-            color: #a0a0a0;
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-        
-        .subtitle span {
-            color: #ff0066;
-            font-weight: bold;
-        }
-        
-        .search-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50px;
-            padding: 10px;
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border: 1px solid #333;
-            backdrop-filter: blur(10px);
-        }
-        
-        .search-section input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            padding: 15px 20px;
-            color: #fff;
-            font-size: 1.1em;
-            outline: none;
-        }
-        
-        .search-section input::placeholder {
+
+        .hero p {
             color: #666;
+            font-size: 1.1em;
         }
-        
-        .search-section button {
-            background: #ff0066;
+
+        .search-container {
+            background: white;
+            border-radius: 50px;
+            padding: 5px;
+            display: flex;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            padding: 20px 25px;
+            font-size: 16px;
+            outline: none;
+            background: transparent;
+            border-radius: 50px;
+        }
+
+        .search-container button {
+            background: #ff0000;
             border: none;
             color: white;
             padding: 15px 40px;
-            border-radius: 40px;
-            font-weight: bold;
+            border-radius: 45px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1.1em;
+            transition: background 0.3s;
+            margin: 5px;
         }
-        
-        .search-section button:hover {
-            background: #cc0052;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 0, 102, 0.5);
+
+        .search-container button:hover {
+            background: #cc0000;
         }
-        
+
+        .format-info {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        .format-info span {
+            color: #ff0000;
+            font-weight: 600;
+        }
+
         .loading {
             text-align: center;
             padding: 50px;
             display: none;
         }
-        
-        .loading::after {
-            content: '';
+
+        .spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid #333;
-            border-top-color: #ff0066;
+            border: 4px solid #f0f0f0;
+            border-top-color: #ff0000;
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            display: inline-block;
+            margin: 0 auto 20px;
         }
-        
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        
+
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
-        
+
         .video-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
+            background: white;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #333;
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        
+
         .video-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(255, 0, 102, 0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        
+
         .thumbnail {
             width: 100%;
-            height: 180px;
+            height: 160px;
             object-fit: cover;
         }
-        
-        .video-info {
+
+        .card-content {
             padding: 15px;
         }
-        
+
         .video-title {
-            font-size: 1.1em;
-            font-weight: bold;
+            font-size: 16px;
+            font-weight: 600;
             margin-bottom: 8px;
-            color: #fff;
+            color: #222;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            height: 48px;
         }
-        
+
         .video-meta {
+            font-size: 13px;
             color: #888;
-            font-size: 0.9em;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
-        
-        .format-selector {
+
+        .video-meta i {
+            margin-right: 5px;
+        }
+
+        .format-row {
             display: flex;
             gap: 10px;
-            margin: 15px 0;
+            margin-bottom: 15px;
         }
-        
-        .format-selector select {
+
+        .format-select {
             flex: 1;
-            background: #222;
-            color: #fff;
-            border: 1px solid #444;
-            padding: 8px;
-            border-radius: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 13px;
             cursor: pointer;
         }
-        
+
+        .format-select:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
+
         .download-btn {
-            background: #ff0066;
+            background: #ff0000;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 12px;
             width: 100%;
-            border-radius: 5px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            font-weight: bold;
             transition: background 0.3s;
         }
-        
+
         .download-btn:hover {
-            background: #cc0052;
+            background: #cc0000;
         }
-        
-        .preview-section {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #1a142b;
-            padding: 30px;
-            border-radius: 20px;
-            border: 2px solid #ff0066;
-            z-index: 1000;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 0 50px rgba(255, 0, 102, 0.5);
-        }
-        
-        .preview-section.active {
-            display: block;
-        }
-        
-        .preview-overlay {
+
+        .modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 999;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
         }
-        
-        .preview-overlay.active {
-            display: block;
+
+        .modal.active {
+            display: flex;
         }
-        
-        .preview-thumb {
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-thumb {
             width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
-        
-        .close-preview {
-            position: absolute;
-            top: 10px;
-            right: 10px;
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .modal-info {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .modal-download {
+            background: #ff0000;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .close-modal {
             background: none;
             border: none;
-            color: #fff;
-            font-size: 2em;
+            font-size: 24px;
+            position: absolute;
+            top: 15px;
+            right: 15px;
             cursor: pointer;
+            color: #666;
         }
-        
-        .error-message {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff0000;
-            color: #ff6666;
+
+        .error-box {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 8px;
             margin: 20px 0;
             display: none;
         }
-        
+
         .footer {
             text-align: center;
+            padding: 30px;
             margin-top: 50px;
-            padding: 20px;
-            color: #666;
-            border-top: 1px solid #333;
+            border-top: 1px solid #ddd;
+            color: #888;
+            font-size: 14px;
         }
-        
-        .badge {
-            background: #ff0066;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            display: inline-block;
-            margin-left: 10px;
+
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+                border-radius: 12px;
+                background: transparent;
+                box-shadow: none;
+            }
+            
+            .search-container button {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>DARK NEXA DOWNLOADER 😈</h1>
-            <div class="subtitle">
-                YouTube Downloader <span>NO TOS • NO RULES • NO LIMITS</span>
-            </div>
-        </header>
+    <nav class="navbar">
+        <div class="logo">YTDownloader</div>
+        <div class="nav-menu">
+            <a href="#">Home</a>
+            <a href="#">MP3</a>
+            <a href="#">MP4</a>
+            <a href="#">About</a>
+        </div>
+    </nav>
 
-        <div class="search-section">
-            <input type="text" id="searchInput" placeholder="Search video or paste YouTube URL... (contoh: god of war atau https://youtu.be/xxx)">
-            <button onclick="searchVideos()">SEARCH</button>
+    <div class="container">
+        <div class="hero">
+            <h1>YouTube Downloader</h1>
+            <p>Download video & audio dari YouTube dengan mudah dan cepat</p>
         </div>
 
-        <div class="error-message" id="errorMsg"></div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Masukkan kata kunci atau link YouTube... (contoh: lagu viral atau https://youtu.be/xxx)">
+            <button onclick="searchVideos()">Cari</button>
+        </div>
 
-        <div class="loading" id="loading"></div>
+        <div class="format-info">
+            <span>✓ MP3 128/320kbps</span> • <span>✓ MP4 144p-1080p</span> • <span>✓ Gratis</span> • <span>✓ Tanpa batasan</span>
+        </div>
+
+        <div class="error-box" id="errorMsg"></div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Mencari video...</p>
+        </div>
 
         <div class="results-grid" id="results"></div>
+    </div>
 
-        <div class="preview-overlay" id="previewOverlay" onclick="closePreview()"></div>
-        <div class="preview-section" id="previewSection">
-            <button class="close-preview" onclick="closePreview()">&times;</button>
-            <div id="previewContent"></div>
-        </div>
-
-        <div class="footer">
-            🔥 DARK NEXA V2.0 - UPDATE 14 DESEMBER 2026 - MELAYANI TANPA BATASAN 🔥
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <div id="modalContent"></div>
         </div>
     </div>
 
+    <div class="footer">
+        © 2026 YouTube Downloader • All videos are property of their respective owners
+    </div>
+
     <script>
-        // Config - ganti dengan URL backend lu nanti
-        const API_URL = 'http://localhost:3000'; // atau deploy ke hosting
-        
-        const qualityVideo = ['144', '240', '360', '720', '1080'];
-        const qualityAudio = ['128', '320'];
+        // API URL - ganti sesuai domain/hosting
+        const API_URL = window.location.hostname === 'localhost' 
+            ? 'http://localhost:3000/api' 
+            : '/api';
 
         async function searchVideos() {
             const query = document.getElementById('searchInput').value.trim();
             if (!query) {
-                showError('Masukin dulu kata kunci atau URL nyet!');
+                showError('Masukkan kata kunci atau link YouTube');
                 return;
             }
 
@@ -322,15 +392,15 @@
             hideError();
 
             try {
-                // Panggil backend buat search
                 const response = await fetch(`${API_URL}/search?q=${encodeURIComponent(query)}`);
                 const data = await response.json();
                 
-                if (data.error) throw new Error(data.error);
+                if (!response.ok) throw new Error(data.error || 'Gagal mencari video');
                 
                 displayResults(data.videos);
             } catch (error) {
-                showError('Gagal nyari video: ' + error.message);
+                showError('Error: ' + error.message + '. Cek koneksi atau backend.');
+                console.error('Search error:', error);
             } finally {
                 showLoading(false);
             }
@@ -341,7 +411,7 @@
             container.innerHTML = '';
 
             if (!videos || videos.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 50px; grid-column: 1/-1;">Video gak ketemu nyet, coba keyword lain 😂</div>';
+                container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:#666;">Tidak ada video ditemukan</div>';
                 return;
             }
 
@@ -350,23 +420,23 @@
                 card.className = 'video-card';
                 
                 card.innerHTML = `
-                    <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}">
-                    <div class="video-info">
+                    <img src="${video.thumbnail}" class="thumbnail" alt="${video.title}" onerror="this.src='https://via.placeholder.com/320x180?text=No+Image'">
+                    <div class="card-content">
                         <div class="video-title">${video.title}</div>
                         <div class="video-meta">
-                            ⏱️ ${video.timestamp} | 👁️ ${formatNumber(video.views)} | 📺 ${video.author.name}
+                            <i>⏱️</i> ${video.timestamp || '00:00'} • <i>👁️</i> ${formatViews(video.views)} • <i>📺</i> ${video.author?.name || 'Unknown'}
                         </div>
-                        <div class="format-selector">
-                            <select id="format-${video.videoId}" onchange="updateQuality('${video.videoId}')">
+                        <div class="format-row">
+                            <select class="format-select" id="format-${video.videoId}" onchange="updateQuality('${video.videoId}')">
                                 <option value="mp3">MP3 Audio</option>
                                 <option value="mp4">MP4 Video</option>
                             </select>
-                            <select id="quality-${video.videoId}">
+                            <select class="format-select" id="quality-${video.videoId}">
                                 ${generateQualityOptions('mp3')}
                             </select>
                         </div>
-                        <button class="download-btn" onclick="downloadVideo('${video.videoId}', '${video.title}', '${video.thumbnail}')">
-                            🔥 DOWNLOAD NOW
+                        <button class="download-btn" onclick="processDownload('${video.videoId}', '${video.title.replace(/'/g, "\\'")}', '${video.thumbnail}')">
+                            Download
                         </button>
                     </div>
                 `;
@@ -377,83 +447,71 @@
 
         function generateQualityOptions(format) {
             if (format === 'mp3') {
-                return qualityAudio.map(q => `<option value="${q}">${q} kbps</option>`).join('');
+                return `
+                    <option value="128">128 kbps</option>
+                    <option value="320">320 kbps</option>
+                `;
             } else {
-                return qualityVideo.map(q => `<option value="${q}">${q}p</option>`).join('');
+                return `
+                    <option value="144">144p</option>
+                    <option value="240">240p</option>
+                    <option value="360">360p</option>
+                    <option value="480">480p</option>
+                    <option value="720">720p</option>
+                    <option value="1080">1080p</option>
+                `;
             }
         }
 
         function updateQuality(videoId) {
             const formatSelect = document.getElementById(`format-${videoId}`);
             const qualitySelect = document.getElementById(`quality-${videoId}`);
-            const format = formatSelect.value;
-            
-            if (format === 'mp3') {
-                qualitySelect.innerHTML = qualityAudio.map(q => `<option value="${q}">${q} kbps</option>`).join('');
-            } else {
-                qualitySelect.innerHTML = qualityVideo.map(q => `<option value="${q}">${q}p</option>`).join('');
-            }
+            qualitySelect.innerHTML = generateQualityOptions(formatSelect.value);
         }
 
-        async function downloadVideo(videoId, title, thumbnail) {
+        async function processDownload(videoId, title, thumbnail) {
             const format = document.getElementById(`format-${videoId}`).value;
             const quality = document.getElementById(`quality-${videoId}`).value;
-            
-            // Show preview
-            showPreview(`
-                <img src="${thumbnail}" class="preview-thumb" alt="${title}">
-                <h3 style="margin-bottom: 10px;">${title}</h3>
-                <p>Format: ${format.toUpperCase()} | Kualitas: ${quality} ${format === 'mp3' ? 'kbps' : 'p'}</p>
-                <p style="color: #ff0066; margin: 15px 0;">⏳ Processing... Jangan ditutup!</p>
-                <div class="loading" style="display: block; padding: 20px;"></div>
-            `);
+
+            // Show modal with loading
+            document.getElementById('modalContent').innerHTML = `
+                <img src="${thumbnail}" class="modal-thumb" alt="${title}">
+                <div class="modal-title">${title}</div>
+                <div class="modal-info">Memproses ${format.toUpperCase()} ${quality}${format === 'mp3' ? 'kbps' : 'p'}...</div>
+                <div class="spinner" style="margin: 20px auto;"></div>
+            `;
+            document.getElementById('downloadModal').classList.add('active');
 
             try {
-                // Panggil API download
-                const response = await fetch(`${API_URL}/download`, {
+                const response = await fetch(`${API_URL}/convert`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        videoId,
-                        format,
-                        quality
-                    })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ videoId, format, quality })
                 });
 
                 const data = await response.json();
                 
-                if (data.error) throw new Error(data.error);
-                
-                // Update preview dengan link download
-                showPreview(`
-                    <img src="${thumbnail}" class="preview-thumb" alt="${title}">
-                    <h3 style="margin-bottom: 10px;">${title}</h3>
-                    <p>✅ Siap download nyet!</p>
-                    <p>Format: ${format.toUpperCase()} | Kualitas: ${quality} ${format === 'mp3' ? 'kbps' : 'p'}</p>
-                    <a href="${data.downloadUrl}" download="${title}.${format}" style="text-decoration: none;">
-                        <button class="download-btn" style="margin-top: 20px;">⬇️ KLIK DOWNLOAD</button>
+                if (!response.ok) throw new Error(data.error || 'Gagal mengkonversi');
+
+                // Update modal with download link
+                document.getElementById('modalContent').innerHTML = `
+                    <img src="${thumbnail}" class="modal-thumb" alt="${title}">
+                    <div class="modal-title">${title}</div>
+                    <div class="modal-info">✓ Siap download! Format: ${format.toUpperCase()} ${quality}${format === 'mp3' ? 'kbps' : 'p'}</div>
+                    <a href="${data.downloadUrl}" download="${title}.${format}" class="modal-download" target="_blank">
+                        ⬇️ Download File
                     </a>
-                `);
+                `;
             } catch (error) {
-                showPreview(`
-                    <h3 style="color: #ff0000;">❌ ERROR!</h3>
-                    <p>${error.message}</p>
-                    <button class="download-btn" onclick="closePreview()" style="margin-top: 20px;">Tutup</button>
-                `);
+                document.getElementById('modalContent').innerHTML = `
+                    <div style="color: #c00; margin-bottom: 20px;">❌ Error: ${error.message}</div>
+                    <button class="download-btn" onclick="closeModal()">Tutup</button>
+                `;
             }
         }
 
-        function showPreview(content) {
-            document.getElementById('previewContent').innerHTML = content;
-            document.getElementById('previewSection').classList.add('active');
-            document.getElementById('previewOverlay').classList.add('active');
-        }
-
-        function closePreview() {
-            document.getElementById('previewSection').classList.remove('active');
-            document.getElementById('previewOverlay').classList.remove('active');
+        function closeModal() {
+            document.getElementById('downloadModal').classList.remove('active');
         }
 
         function showLoading(show) {
@@ -463,17 +521,18 @@
         function showError(msg) {
             const errorEl = document.getElementById('errorMsg');
             errorEl.style.display = 'block';
-            errorEl.textContent = '❌ ' + msg;
+            errorEl.textContent = msg;
         }
 
         function hideError() {
             document.getElementById('errorMsg').style.display = 'none';
         }
 
-        function formatNumber(num) {
-            if (num >= 1000000) return (num/1000000).toFixed(1) + 'M';
-            if (num >= 1000) return (num/1000).toFixed(1) + 'K';
-            return num;
+        function formatViews(views) {
+            if (!views) return '0';
+            if (views >= 1000000) return (views/1000000).toFixed(1) + 'M';
+            if (views >= 1000) return (views/1000).toFixed(1) + 'K';
+            return views;
         }
 
         // Enter key search
@@ -482,4 +541,4 @@
         });
     </script>
 </body>
-  </html> 
+            </html> 
